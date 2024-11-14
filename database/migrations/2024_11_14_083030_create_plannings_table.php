@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Course;
+use App\Models\EducationElement;
 use App\Models\Resource;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,7 +17,7 @@ return new class extends Migration
         Schema::create('plannings', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Course::class)->constrained();
-            $table->foreignIdFor(Resource::class)->constrained();
+            $table->foreignIdFor(EducationElement::class)->constrained();
             $table->integer('week');
             $table->integer('day');
             $table->time('starts_at');
