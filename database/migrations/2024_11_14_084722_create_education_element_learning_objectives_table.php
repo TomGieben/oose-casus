@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('education_element_learning_objectives', function (Blueprint $table) {
+        Schema::create('education_element_learning_objective', function (Blueprint $table) {
             $table->foreignIdFor(EducationElement::class)->constrained('education_elements', 'id', 'education_element_foreign');
             $table->foreignIdFor(LearningObjective::class)->constrained('learning_objectives', 'id', 'learning_objective_foreign');
         });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Criteria;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('criterias', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 255);
-            $table->text('description');
-            $table->timestamps();
+        Schema::create('test_criteria', function (Blueprint $table) {
+            $table->foreignIdFor(Criteria::class)->constrained()->cascadeOnDelete();
+            $table->foreignId('test_id')->constrained('education_elements')->cascadeOnDelete();
         });
     }
 
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('citerias');
+        Schema::dropIfExists('citeria_test');
     }
 };
