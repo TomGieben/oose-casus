@@ -12,4 +12,5 @@ class ProfessionalProduct extends Test
     {
         return $this->hasMany(TestCriteria::class);
     }
+    
 }
