@@ -99,7 +99,10 @@ class Course extends Model
 
             $totalLearningObjectives = $totalLearningObjectives->merge($learningObjectivesBeforeTest);
 
-            if (!$educationElement->areLearningObjectivesCovered($learningObjectivesBeforeTest)) {
+            $isCovered = $educationElement->areLearningObjectivesCovered($learningObjectivesBeforeTest);
+            $learningObjectivesBeforeTest = collect();
+
+            if (!$isCovered) {
                 return false;
             }
         }
