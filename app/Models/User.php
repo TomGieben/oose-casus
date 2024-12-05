@@ -48,4 +48,19 @@ class User extends Authenticatable
             'role' => Role::class,
         ];
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->role->is(Role::Admin);
+    }
+
+    public function isTeacher(): bool
+    {
+        return $this->role->is(Role::Teacher);
+    }
+
+    public function isStudent(): bool
+    {
+        return $this->role->is(Role::Student);
+    }
 }
