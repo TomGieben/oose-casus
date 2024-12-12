@@ -41,8 +41,8 @@ class ResourceController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'education_element_id' => 'required|exists:education_elements,id',
+            'course_id' => 'nullable|exists:courses,id|required_without:education_element_id',
+            'education_element_id' => 'nullable|exists:education_elements,id|required_without:course_id',
             'name' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
@@ -66,8 +66,8 @@ class ResourceController extends Controller
     public function update(Request $request, Resource $resource)
     {
         $validated = $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'education_element_id' => 'required|exists:education_elements,id',
+            'course_id' => 'nullable|exists:courses,id|required_without:education_element_id',
+            'education_element_id' => 'nullable|exists:education_elements,id|required_without:course_id',
             'name' => 'required|string|max:255',
             'content' => 'required|string',
         ]);

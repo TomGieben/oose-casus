@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -12,7 +11,8 @@
 
         <div class="mb-3">
             <label for="course_id" class="form-label">{{ __('Course') }}</label>
-            <select class="form-control" id="course_id" name="course_id">
+            <select class="form-control" id="course_id" name="course_id" onchange="toggleSelection('course_id', 'education_element_id')">
+                <option value="">{{ __('No Course selected') }}</option>
                 @foreach ($courses as $course)
                     <option value="{{ $course->id }}">{{ $course->name }}</option>
                 @endforeach
@@ -21,7 +21,8 @@
 
         <div class="mb-3">
             <label for="education_element_id" class="form-label">{{ __('Education element') }}</label>
-            <select class="form-control" id="education_element_id" name="education_element_id">
+            <select class="form-control" id="education_element_id" name="education_element_id" onchange="toggleSelection('education_element_id', 'course_id')">
+                <option value="">{{ __('No Education element selected') }}</option>
                 @foreach ($educationElements as $educationElement)
                     <option value="{{ $educationElement->id }}">
                         {{ $educationElement->name }}
@@ -53,5 +54,17 @@
 
     </form>
 </div>
+
+<script>
+    function toggleSelection(selectedId, otherId) {
+        const selectedElement = document.getElementById(selectedId);
+        const otherElement = document.getElementById(otherId);
+        if (selectedElement.value) {
+            otherElement.disabled = true;
+        } else {
+            otherElement.disabled = false;
+        }
+    }
+</script>
 
 @endsection

@@ -32,8 +32,8 @@
             @endif
             @foreach ($resources as $resource)
                 <tr>
-                    <th scope="row">{{ $resource->course->name }}</th>
-                    <th scope="row">{{ $resource->educationElement->name }}</th>
+                    <th scope="row">{{ $resource->course?->name }}</th>
+                    <th scope="row">{{ $resource->educationElement?->name }}</th>
                     <td scope="row">{{ $resource->name }}</td>
                     <td scope="row" class="limited-width">{{ $resource->content }}</td>
                     <td scope="row">
