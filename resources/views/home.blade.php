@@ -3,6 +3,12 @@
 @section('content')
 <div class="container">
     <div class="row">
+        <div class="col-12 border-bottom mb-3">
+            <h2>{{ __('Home') }}</h2>
+            <p class="lead">
+                {{ __('Welcome :user, to the Learning Management System!', ['user' => e(Auth::user()->name)]) }}
+            </p>            
+        </div>
         <div class="col-md-4 col-12">
             <a href="{{ route('courses.index') }}" class="card mb-3 shadow-sm text-decoration-none">
                 <div class="card-body bg-primary text-white">
