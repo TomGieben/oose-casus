@@ -16,6 +16,14 @@ class Test extends EducationElement
 
     public function areLearningObjectivesCovered(Collection $objectives): bool
     {
+        $testObjectives = $this->learningObjectives;
+
+        foreach ($testObjectives as $testObjective) {
+            if (!$objectives->contains($testObjective)) {
+                return false;
+            }
+        }
+
         return true;
     }
 }
