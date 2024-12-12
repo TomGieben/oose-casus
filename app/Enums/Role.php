@@ -11,4 +11,13 @@ enum Role: string {
     {
         return $this->value === $role->value;
     }
+
+    public static function values(): array
+    {
+        return [
+            self::Admin->value,
+            self::Teacher->value,
+            self::Student->value,
+        ];
+    }
 }
