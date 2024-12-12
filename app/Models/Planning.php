@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\Day;
+use App\Enums\Week;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,6 +22,8 @@ class Planning extends Model
     ];
 
     protected $casts = [
+        'week' => Week::class,
+        'day' => Day::class,
         'starts_at' => 'datetime',
         'ends_at' => 'datetime',
     ];
