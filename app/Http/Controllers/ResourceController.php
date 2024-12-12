@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exporters\Exporter;
 use App\Models\Resource;
 use App\Models\Course;
 use App\Models\EducationElement;
@@ -82,23 +83,17 @@ class ResourceController extends Controller
         return redirect()->route('resources.index');
     }
 
-    public function export(Resource $resource, $type)
+    public function export(Resource $resource, string $type)
     {
-        switch ($type) {
-            case 'pdf':
-                $exporter = new Pdf($resource);
-                break;
-            case 'word':
-                $exporter = new Word($resource);
-                break;
-            case 'csv':
-                $exporter = new Csv($resource);
-                break;
-            default:
-                return redirect()->route('resources.index')->withErrors('Invalid export type.');
+        $class = 'App\\Exporters\\' . $type;
+
+        if (!(new $class($resource)) instanceof Exporter) {
+            return redirect()->route('resources.index')->withErrors('Invalid export type.');
         }
 
-        return redirect()->route('resources.index')->withErrors('Choosen the type: ' . $type . ' for the resource: ' . $resource->name . 'But its in development');
+        $exporter = new $class($resource);
+
+        return redirect()->route('resources.index')->withErrors('Chosen the type: ' . $type . ' for the resource: ' . $resource->name . ' But it\'s in development');
 
         // return $exporter->download();
     }

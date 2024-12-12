@@ -41,16 +41,7 @@
                             <i class="fas fa-edit"></i>
                         </a>
                         <x-delete-button :route="route('resources.destroy', $resource)" small/>
-                        <div class="dropdown d-inline">
-                            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="exportDropdown{{ $resource->id }}" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ __('Export') }}
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="exportDropdown{{ $resource->id }}">
-                                <li><a class="dropdown-item" href="{{ route('resources.export', ['resource' => $resource->id, 'type' => 'pdf']) }}">{{ __('Export as PDF') }}</a></li>
-                                <li><a class="dropdown-item" href="{{ route('resources.export', ['resource' => $resource->id, 'type' => 'word']) }}">{{ __('Export as Word') }}</a></li>
-                                <li><a class="dropdown-item" href="{{ route('resources.export', ['resource' => $resource->id, 'type' => 'csv']) }}">{{ __('Export as CSV') }}</a></li>
-                            </ul>
-                        </div>
+                        <x-exporter-dropdown :resource="$resource"/>
                     </td>
                 </tr>
             @endforeach
