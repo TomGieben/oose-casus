@@ -11,7 +11,7 @@
 
         <div class="mb-3">
             <label for="course_id" class="form-label">{{ __('Course') }}</label>
-            <select class="form-control" id="course_id" name="course_id" onchange="toggleSelection('course_id', 'education_element_id')">
+            <select class="form-control" id="course_id" name="course_id" onchange="toggleSelection('course_id', 'education_element_id')" @if(!$resource->course_id) disabled @endif>
                 <option value="">{{ __('No Course selected') }}</option>
                 @foreach ($courses as $course)
                     <option value="{{ $course->id }}" {{ $course->id == $resource->course_id ? 'selected' : '' }}>
@@ -23,7 +23,7 @@
 
         <div class="mb-3">
             <label for="education_element_id" class="form-label">{{ __('Education element') }}</label>
-            <select class="form-control" id="education_element_id" name="education_element_id" onchange="toggleSelection('education_element_id', 'course_id')">
+            <select class="form-control" id="education_element_id" name="education_element_id" onchange="toggleSelection('education_element_id', 'course_id')" @if(!$resource->education_element_id) disabled @endif>
                 <option value="">{{ __('No Education element selected') }}</option>
                 @foreach ($educationElements as $educationElement)
                     <option value="{{ $educationElement->id }}" {{ $educationElement->id == $resource->education_element_id ? 'selected' : '' }}>
