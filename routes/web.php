@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('executions', ExecutionController::class);
     Route::resource('groups', GroupController::class);
     Route::resource('learning-objectives', LearningObjectiveController::class);
+    Route::resource('learning_objectives', LearningObjectiveController::class);
     Route::resource('planning', PlanningController::class);
     Route::resource('resources', ResourceController::class);
     Route::resource('users', UserController::class);
