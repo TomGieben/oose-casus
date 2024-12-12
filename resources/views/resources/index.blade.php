@@ -12,13 +12,13 @@
         </a>
     </div>
 
-    <table class="table table-striped">
+    <table class="table table-striped table-responsive">
         <thead class="table-light">
             <tr>
                 <th scope="col">{{ __('Course') }}</th>
                 <th scope="col">{{ __('Education element') }}</th>
                 <th scope="col">{{ __('Name') }}</th>
-                <th scope="col">{{ __('Content') }}</th>
+                <th scope="col" class="limited-width">{{ __('Content') }}</th>
                 <th scope="col">{{ __('Actions') }}</th>
             </tr>
         </thead>
@@ -34,9 +34,9 @@
                 <tr>
                     <th scope="row">{{ $resource->course->name }}</th>
                     <th scope="row">{{ $resource->educationElement->name }}</th>
-                    <td>{{ $resource->name }}</td>
-                    <td>{{ $resource->content }}</td>
-                    <td>
+                    <td scope="row">{{ $resource->name }}</td>
+                    <td scope="row" class="limited-width">{{ $resource->content }}</td>
+                    <td scope="row">
                         <a class="btn btn-sm btn-warning me-1" href="{{ route('resources.edit', $resource) }}">
                             <i class="fas fa-edit"></i>
                         </a>
