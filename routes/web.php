@@ -34,4 +34,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('plannings', PlanningController::class);
     Route::resource('resources', ResourceController::class);
     Route::resource('users', UserController::class);
+    Route::get('resources/export/{resource}/{type}', [ResourceController::class, 'export'])->name('resources.export');
 });
