@@ -5,9 +5,9 @@
 <div class="container my-5">
     <h2 class="text-center mb-4">{{ __('Edit Classroom') }}</h2>
 
-    <form action="{{ route('classrooms.store') }}" method="POST">
+    <form action="{{ route('classrooms.update', $classroom) }}" method="POST">
         @csrf
-        @method('POST')
+        @method('PUT')
 
         <div class="mb-3">
             <label for="number" class="form-label">{{ __('Number') }}</label>

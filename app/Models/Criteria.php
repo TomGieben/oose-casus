@@ -20,4 +20,9 @@ class Criteria extends Model
     {
         return $this->belongsToMany(ProfessionalProduct::class);
     }
+
+    public function getLimitedDescription(): string
+    {
+        return substr($this->description, 0, 30) . '...';
+    }
 }
