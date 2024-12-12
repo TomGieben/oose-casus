@@ -41,8 +41,6 @@ class CourseController extends Controller
         }
     }
 
-    public function show($id) {}
-
     public function edit(Course $course)
     {
         return view('courses.edit', [
@@ -66,10 +64,8 @@ class CourseController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(Course $course)
     {
-        $course = Course::findOrFail($id);
-
         if ($course->delete()) {
             return redirect()->route('courses.index')->with('success', 'Course deleted successfully.');
         } else {
