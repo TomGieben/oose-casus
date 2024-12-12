@@ -2,11 +2,12 @@
 
 namespace App\Exporters;
 
+use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Response;
 
 class Pdf extends Exporter
 {
-    public function download()
+    public function download(): HttpResponse
     {
         $pdfContent = $this->generatePdfContent($this->resource->content);
         $headers = $this->getPdfHeaders($this->resource->name);

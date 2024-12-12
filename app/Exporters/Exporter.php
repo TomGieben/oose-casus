@@ -3,7 +3,7 @@
 namespace App\Exporters;
 
 use App\Models\Resource;
-use Illuminate\Http\Response;
+use Illuminate\Http\Response as HttpResponse;
 
 abstract class Exporter
 {
@@ -14,5 +14,5 @@ abstract class Exporter
         $this->resource = $resource;
     }
 
-    abstract public function download();
+    abstract public function download(): HttpResponse;
 }

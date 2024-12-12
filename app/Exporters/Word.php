@@ -2,11 +2,12 @@
 
 namespace App\Exporters;
 
+use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Response;
 
 class Word extends Exporter
 {
-    public function download()
+    public function download(): HttpResponse
     {
         $content = $this->resource->content;
         $headers = [
