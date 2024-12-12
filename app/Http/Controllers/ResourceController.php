@@ -85,16 +85,14 @@ class ResourceController extends Controller
 
     public function export(Resource $resource, string $type)
     {
-        $class = 'App\\Exporters\\' . $type;
+        $class = 'App\\Exporters\\' . ucfirst($type);
 
-        if (!(new $class($resource)) instanceof Exporter) {
+        if (!class_exists($class) || !(new $class($resource)) instanceof Exporter) {
             return redirect()->route('resources.index')->withErrors('Invalid export type.');
         }
 
         $exporter = new $class($resource);
 
-        return redirect()->route('resources.index')->withErrors('Chosen the type: ' . $type . ' for the resource: ' . $resource->name . ' But it\'s in development');
-
-        // return $exporter->download();
+        return $exporter->download();
     }
 }
