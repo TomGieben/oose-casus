@@ -41,4 +41,9 @@ class Execution extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    public function getNameAttribute(): string
+    {
+        return $this->course->name . ' - ' . $this->group->number;
+    }
 }

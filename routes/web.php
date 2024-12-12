@@ -27,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('courses', CourseController::class);
     Route::resource('criteria', CriteriaController::class);
     Route::resource('education-elements', EducationElementController::class);
-    Route::resource('evaluation', EvaluationController::class);
+    Route::resource('evaluations', EvaluationController::class);
     Route::resource('executions', ExecutionController::class);
     Route::resource('groups', GroupController::class);
     Route::resource('learning-objectives', LearningObjectiveController::class);

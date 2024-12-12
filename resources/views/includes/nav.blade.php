@@ -32,7 +32,7 @@
         </a>
 
         <a class="dropdown-item @if (Route::is('evaluation.*')) active @endif"
-            href="{{ route('evaluation.index') }}">
+            href="{{ route('evaluations.index') }}">
             <i class="fal fa-poll"></i>
             {{ __('Evaluation') }}
         </a>
