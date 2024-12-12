@@ -7,6 +7,7 @@ use App\Pivots\EducationElementLearningObjective;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use App\Enums\EducationElementType;
 
 class EducationElement extends Model
 {
@@ -16,6 +17,10 @@ class EducationElement extends Model
         'type_class',
         'name',
         'description',
+    ];
+
+    protected $casts = [
+        'type_class' => EducationElementType::class,
     ];
 
     public function learningObjectives(): HasManyThrough
