@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -7,7 +6,7 @@
     <h2 class="mb-4">{{ __('Resources') }}</h2>
 
     <div class="d-flex justify-content-end mb-3">
-        <a class="btn btn-secondary" href="{{ route('resources.create') }}">
+        <a class="btn btn-secondary me-2" href="{{ route('resources.create') }}">
             <i class="fas fa-plus"></i> 
             {{ __('Add Resource') }}
         </a>
@@ -42,6 +41,16 @@
                             <i class="fas fa-edit"></i>
                         </a>
                         <x-delete-button :route="route('resources.destroy', $resource)" small/>
+                        <div class="dropdown d-inline">
+                            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="exportDropdown{{ $resource->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ __('Export') }}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="exportDropdown{{ $resource->id }}">
+                                <li><a class="dropdown-item" href="{{ route('resources.export', ['resource' => $resource->id, 'type' => 'pdf']) }}">{{ __('Export as PDF') }}</a></li>
+                                <li><a class="dropdown-item" href="{{ route('resources.export', ['resource' => $resource->id, 'type' => 'word']) }}">{{ __('Export as Word') }}</a></li>
+                                <li><a class="dropdown-item" href="{{ route('resources.export', ['resource' => $resource->id, 'type' => 'csv']) }}">{{ __('Export as CSV') }}</a></li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             @endforeach

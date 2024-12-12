@@ -6,6 +6,9 @@ use App\Models\Resource;
 use App\Models\Course;
 use App\Models\EducationElement;
 use Illuminate\Http\Request;
+use App\Exporters\Pdf;
+use App\Exporters\Word;
+use App\Exporters\Csv;
 
 class ResourceController extends Controller
 {
@@ -77,5 +80,26 @@ class ResourceController extends Controller
     {
         $resource->delete();
         return redirect()->route('resources.index');
+    }
+
+    public function export(Resource $resource, $type)
+    {
+        switch ($type) {
+            case 'pdf':
+                $exporter = new Pdf($resource);
+                break;
+            case 'word':
+                $exporter = new Word($resource);
+                break;
+            case 'csv':
+                $exporter = new Csv($resource);
+                break;
+            default:
+                return redirect()->route('resources.index')->withErrors('Invalid export type.');
+        }
+
+        return redirect()->route('resources.index')->withErrors('Choosen the type: ' . $type . ' for the resource: ' . $resource->name . 'But its in development');
+
+        // return $exporter->download();
     }
 }
