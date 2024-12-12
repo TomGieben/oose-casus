@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exporters\Exporter;
 use App\Models\Resource;
 use App\Models\Course;
 use App\Models\EducationElement;
@@ -41,8 +42,8 @@ class ResourceController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'education_element_id' => 'required|exists:education_elements,id',
+            'course_id' => 'nullable|exists:courses,id|required_without:education_element_id',
+            'education_element_id' => 'nullable|exists:education_elements,id|required_without:course_id',
             'name' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
@@ -66,8 +67,8 @@ class ResourceController extends Controller
     public function update(Request $request, Resource $resource)
     {
         $validated = $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'education_element_id' => 'required|exists:education_elements,id',
+            'course_id' => 'nullable|exists:courses,id|required_without:education_element_id',
+            'education_element_id' => 'nullable|exists:education_elements,id|required_without:course_id',
             'name' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
@@ -82,24 +83,16 @@ class ResourceController extends Controller
         return redirect()->route('resources.index');
     }
 
-    public function export(Resource $resource, $type)
+    public function export(Resource $resource, string $type)
     {
-        switch ($type) {
-            case 'pdf':
-                $exporter = new Pdf($resource);
-                break;
-            case 'word':
-                $exporter = new Word($resource);
-                break;
-            case 'csv':
-                $exporter = new Csv($resource);
-                break;
-            default:
-                return redirect()->route('resources.index')->withErrors('Invalid export type.');
+        $class = 'App\\Exporters\\' . ucfirst($type);
+
+        if (!class_exists($class) || !(new $class($resource)) instanceof Exporter) {
+            return redirect()->route('resources.index')->withErrors('Invalid export type.');
         }
 
-        return redirect()->route('resources.index')->withErrors('Choosen the type: ' . $type . ' for the resource: ' . $resource->name . 'But its in development');
+        $exporter = new $class($resource);
 
-        // return $exporter->download();
+        return $exporter->download();
     }
 }
