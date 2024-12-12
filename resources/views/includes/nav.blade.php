@@ -54,9 +54,7 @@
             {{ __('Learning Objectives') }}
         </a>
 
-<<<<<<< HEAD
         <a class="dropdown-item @if (Route::is('plannings.*')) active @endif" href="{{ route('plannings.index') }}">
->>>>>>> origin/development
             <i class="fal fa-calendar-alt"></i>
             {{ __('Planning') }}
         </a>
