@@ -11,14 +11,14 @@ class EducationElementController extends Controller
     public function index()
     {
         $educationElements = EducationElement::all();
-        return view('educationElements.index', [
+        return view('education-elements.index', [
             'educationElements' => $educationElements,
         ]);
     }
 
     public function create()
     {
-        return view('educationElements.create', [
+        return view('education-elements.create', [
             'types' => EducationElementType::asArray(),
         ]);
     }
@@ -38,7 +38,7 @@ class EducationElementController extends Controller
 
     public function edit(EducationElement $educationElement)
     {
-        return view('educationElements.edit', [
+        return view('education-elements.edit', [
             'educationElement' => $educationElement,
             'types' => EducationElementType::asArray(),
         ]);
