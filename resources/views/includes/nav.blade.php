@@ -10,62 +10,64 @@
             {{ __('Home') }}
         </a>
 
-        <a class="dropdown-item @if (Route::has('classrooms.*')) active @endif" href="{{ route('classrooms.index') }}">
+        <a class="dropdown-item @if (Route::is('classrooms.*')) active @endif" href="{{ route('classrooms.index') }}">
             <i class="fal fa-chalkboard-teacher"></i>
             {{ __('Classrooms') }}
         </a>
 
-        <a class="dropdown-item @if (Route::has('courses.*')) active @endif" href="{{ route('courses.index') }}">
+        <a class="dropdown-item @if (Route::is('courses.*')) active @endif" href="{{ route('courses.index') }}">
             <i class="fal fa-book"></i>
             {{ __('Courses') }}
         </a>
 
-        <a class="dropdown-item @if (Route::has('criteria.*')) active @endif" href="{{ route('criteria.index') }}">
+        <a class="dropdown-item @if (Route::is('criteria.*')) active @endif" href="{{ route('criteria.index') }}">
             <i class="fal fa-list"></i>
             {{ __('Criteria') }}
         </a>
 
-        <a class="dropdown-item @if (Route::has('education-elements.*')) active @endif"
+        <a class="dropdown-item @if (Route::is('education-elements.*')) active @endif"
             href="{{ route('education-elements.index') }}">
             <i class="fal fa-graduation-cap"></i>
             {{ __('Education Elements') }}
         </a>
 
-        <a class="dropdown-item @if (Route::has('evaluation.*')) active @endif"
+        <a class="dropdown-item @if (Route::is('evaluation.*')) active @endif"
             href="{{ route('evaluation.index') }}">
             <i class="fal fa-poll"></i>
             {{ __('Evaluation') }}
         </a>
 
-        <a class="dropdown-item @if (Route::has('executions.*')) active @endif"
+        <a class="dropdown-item @if (Route::is('executions.*')) active @endif"
             href="{{ route('executions.index') }}">
             <i class="fal fa-tasks"></i>
             {{ __('Executions') }}
         </a>
 
-        <a class="dropdown-item @if (Route::has('groups.*')) active @endif" href="{{ route('groups.index') }}">
+        <a class="dropdown-item @if (Route::is('groups.*')) active @endif" href="{{ route('groups.index') }}">
             <i class="fal fa-users"></i>
             {{ __('Groups') }}
         </a>
 
-        <a class="dropdown-item @if (Route::has('learning-objectives.*')) active @endif"
+        <a class="dropdown-item @if (Route::is('learning-objectives.*')) active @endif"
             href="{{ route('learning-objectives.index') }}">
             <i class="fal fa-bullseye"></i>
             {{ __('Learning Objectives') }}
         </a>
 
-        <a class="dropdown-item @if (Route::has('plannings.*')) active @endif" href="{{ route('plannings.index') }}">
+<<<<<<< HEAD
+        <a class="dropdown-item @if (Route::is('plannings.*')) active @endif" href="{{ route('plannings.index') }}">
+>>>>>>> origin/development
             <i class="fal fa-calendar-alt"></i>
             {{ __('Planning') }}
         </a>
 
-        <a class="dropdown-item @if (Route::has('resources.*')) active @endif"
+        <a class="dropdown-item @if (Route::is('resources.*')) active @endif"
             href="{{ route('resources.index') }}">
             <i class="fal fa-book-open"></i>
             {{ __('Resources') }}
         </a>
 
-        <a class="dropdown-item @if (Route::has('roles.*')) active @endif" href="{{ route('users.index') }}">
+        <a class="dropdown-item @if (Route::is('roles.*')) active @endif" href="{{ route('users.index') }}">
             <i class="fal fa-users"></i>
             {{ __('Users') }}
         </a>
