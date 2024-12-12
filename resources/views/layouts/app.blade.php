@@ -60,6 +60,27 @@
         </nav>
 
         <main class="py-4">
+            @if(session()->has('success'))
+                <div class="container">
+                    <div class="alert alert-success">
+                        <i class="fas fa-check me-1"></i>
+                        {{ session('success') }}
+                    </div>
+                </div>
+            @endif
+
+            @if(session()->has('errors'))
+                <div class="container">
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
             @yield('content')
         </main>
 
