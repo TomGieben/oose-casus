@@ -48,11 +48,6 @@ class EvaluationController extends Controller
         return redirect()->route('evaluations.index')->with('success', __('Evaluation created successfully.'));
     }
 
-    public function show(Evaluation $evaluation)
-    {
-        return view('evaluations.show', compact('evaluation'));
-    }
-
     public function edit(Evaluation $evaluation)
     {
         $students = User::where('role', Role::Student)->get();

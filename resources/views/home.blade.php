@@ -50,7 +50,7 @@
             </a>
         </div>
         <div class="col-md-4 col-12">
-            <a href="{{ route('evaluation.index') }}" class="card mb-3 shadow-sm text-decoration-none">
+            <a href="{{ route('evaluations.index') }}" class="card mb-3 shadow-sm text-decoration-none">
                 <div class="card-body bg-secondary text-white rounded">
                     <i class="fal fa-poll"></i>
                     {{ __('Evaluation') }}

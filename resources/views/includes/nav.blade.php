@@ -31,7 +31,7 @@
             {{ __('Education Elements') }}
         </a>
 
-        <a class="dropdown-item @if (Route::is('evaluation.*')) active @endif"
+        <a class="dropdown-item @if (Route::is('evaluations.*')) active @endif"
             href="{{ route('evaluations.index') }}">
             <i class="fal fa-poll"></i>
             {{ __('Evaluation') }}
