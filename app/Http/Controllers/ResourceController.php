@@ -7,9 +7,6 @@ use App\Models\Resource;
 use App\Models\Course;
 use App\Models\EducationElement;
 use Illuminate\Http\Request;
-use App\Exporters\Pdf;
-use App\Exporters\Word;
-use App\Exporters\Csv;
 
 class ResourceController extends Controller
 {

@@ -70,8 +70,8 @@ class PlanningController extends Controller
         $validated = $request->validate([
             'course_id' => 'required|exists:courses,id',
             'education_element_id' => 'required|exists:education_elements,id',
-            'week' => 'required|in,' . implode(',', Week::values()),
-            'day' => 'required|in,' . implode(',', Day::values()),
+            'week' => 'required|in:' . implode(',', Week::values()),
+            'day' => 'required|in:' . implode(',', Day::values()),
             'starts_at' => 'required|date_format:H:i|before:ends_at',
             'ends_at' => 'required|date_format:H:i|after:starts_at',
         ]);
