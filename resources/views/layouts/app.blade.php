@@ -81,6 +81,15 @@
                 </div>
             @endif
 
+            @if(session()->has('error'))
+                <div class="container">
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-1"></i>
+                        {{ session('error') }}
+                    </div>
+                </div>
+            @endif
+
             @yield('content')
         </main>
 

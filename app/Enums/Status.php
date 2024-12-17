@@ -13,4 +13,9 @@ enum Status: string {
             self::Plannable->value,
         ];
     }
+
+    public function is(Status $status): bool
+    {
+        return $this->value === $status->value;
+    }
 }

@@ -25,6 +25,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth'])->group(function () {
     Route::resource('classrooms', ClassroomController::class);
     Route::resource('courses', CourseController::class);
+    Route::patch('courses/{course}/complete', [CourseController::class, 'complete'])->name('courses.complete');
     Route::resource('criteria', CriteriaController::class);
     Route::resource('education-elements', EducationElementController::class);
     Route::resource('evaluations', EvaluationController::class);
