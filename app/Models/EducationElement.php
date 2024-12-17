@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use App\Enums\EducationElementType;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class EducationElement extends Model
 {
@@ -23,14 +24,19 @@ class EducationElement extends Model
         'type_class' => EducationElementType::class,
     ];
 
-    public function learningObjectives(): HasManyThrough
+    public function learningObjectives(): BelongsToMany
     {
-        return $this->hasManyThrough(LearningObjective::class, EducationElementLearningObjective::class);
+        return $this->belongsToMany(
+            LearningObjective::class,
+            'education_element_learning_objective',
+            'education_element_id',
+            'learning_objective_id'
+        );
     }
 
     public function getType(): EducationElement
     {
-        return new $this->type_class;
+        return new $this->type_class->value;
     }
 
     public function isTest(): bool

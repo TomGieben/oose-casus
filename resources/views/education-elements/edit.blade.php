@@ -26,6 +26,23 @@
             </select>
         </div>
 
+        <div class="mb-3">
+            <label for="learning_objectives" class="form-label d-flex justify-content-between">
+                <span>{{ __('Learning Objectives') }}</span>
+                <small class="text-muted">
+                    {{ __('(Hold down the Ctrl (windows) or Command (Mac) button to select multiple options)') }}
+                </small>
+            </label>
+            <select multiple class="form-control" id="learning_objectives" name="learning_objectives[]">
+                @foreach ($learningObjectives as $learningObjective)
+                    <option value="{{ $learningObjective->id }}"
+                        {{ in_array($learningObjective->id, old('learning_objectives') ?? $educationElement->learningObjectives->pluck('id')->toArray()) ? 'selected' : '' }}>
+                        {{ $learningObjective->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="d-flex justify-content-between">
             <a class="btn btn-light" href="{{ route('education-elements.index') }}">
                 <i class="fas fa-arrow-left"></i> 

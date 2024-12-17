@@ -32,7 +32,19 @@
                 <tr>
                     <th scope="row">{{ $course->name }}</th>
                     <th scope="row">{{ $course->status }}</th>
-                    <td>
+                    <td class="d-flex">
+                        @if($course->isDraft())
+                            <div>
+                                <form action="{{ route('courses.complete', $course) }}" method="POST">
+                                    @method('PATCH')
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-success me-1" title="{{ __('Complete') }}">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
+                           
                         <a class="btn btn-sm btn-warning me-1" href="{{ route('courses.edit', $course) }}">
                             <i class="fas fa-edit"></i>
                         </a>

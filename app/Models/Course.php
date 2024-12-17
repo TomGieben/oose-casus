@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\EducationElements\Test;
 use App\Enums\Status;
 use App\Pivots\CourseLearningObjective;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Support\Collection as SupportCollection;
 
 class Course extends Model
 {
@@ -45,9 +48,14 @@ class Course extends Model
         return $this->hasMany(Planning::class);
     }
 
-    public function learningObjectives(): HasManyThrough
+    public function learningObjectives(): BelongsToMany
     {
-        return $this->hasManyThrough(LearningObjective::class, CourseLearningObjective::class);
+        return $this->belongsToMany(
+            LearningObjective::class,
+            'course_learning_objective',
+            'course_id',
+            'learning_objective_id'
+        );
     }
 
     public function getPlanningsInOrder(): Collection
@@ -74,7 +82,6 @@ class Course extends Model
             return false;
         }
 
-
         if (!$this->areLearningObjectivesCovered($totalLearningObjectives)) {
             $this->update(['status' => Status::Draft]);
             return false;
@@ -84,11 +91,12 @@ class Course extends Model
         return true;
     }
 
-    private function checkLearningObjectivesPlanning(Collection &$totalLearningObjectives): bool
+    private function checkLearningObjectivesPlanning(SupportCollection &$totalLearningObjectives): bool
     {
         $plannings = $this->getPlanningsInOrder();
 
         $learningObjectivesBeforeTest = collect();
+
         foreach ($plannings as $planning) {
             $educationElement = $planning->educationElement;
 
@@ -98,8 +106,7 @@ class Course extends Model
             }
 
             $totalLearningObjectives = $totalLearningObjectives->merge($learningObjectivesBeforeTest);
-
-            $isCovered = $educationElement->areLearningObjectivesCovered($learningObjectivesBeforeTest);
+            $isCovered = Test::find($educationElement->id)->areLearningObjectivesCovered($learningObjectivesBeforeTest);
             $learningObjectivesBeforeTest = collect();
 
             if (!$isCovered) {
@@ -110,9 +117,10 @@ class Course extends Model
         return true;
     }
 
-    public function areLearningObjectivesCovered(Collection $objectives): bool
+    public function areLearningObjectivesCovered(SupportCollection $objectives): bool
     {
-        $courseObjectives = $this->learningObjectives;
+        $courseObjectives = $this->learningObjectives->pluck('id');
+        $objectives = $objectives->pluck('id');
 
         foreach ($courseObjectives as $courseObjective) {
             if (!$objectives->contains($courseObjective)) {

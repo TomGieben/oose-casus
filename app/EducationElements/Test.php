@@ -9,6 +9,8 @@ use Illuminate\Support\Collection;
 
 class Test extends EducationElement
 {
+    protected $table = 'education_elements';
+
     public function evalluations(): HasMany
     {
         return $this->hasMany(Evaluation::class);
@@ -16,7 +18,8 @@ class Test extends EducationElement
 
     public function areLearningObjectivesCovered(Collection $objectives): bool
     {
-        $testObjectives = $this->learningObjectives;
+        $testObjectives = $this->learningObjectives->pluck('id');
+        $objectives = $objectives->pluck('id');
 
         foreach ($testObjectives as $testObjective) {
             if (!$objectives->contains($testObjective)) {
