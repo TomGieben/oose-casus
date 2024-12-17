@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Enums\EducationElementType;
 use App\Models\EducationElement;
+use App\Models\LearningObjective;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -38,15 +39,20 @@ class EducationElementControllerTest extends TestCase
     {
         $this->signIn();
 
+        $learningObjectives = LearningObjective::factory()->count(rand(1, 3))->create()->pluck('id')->toArray();
         $attributes = [
             'name' => $this->faker->word,
             'type_class' => EducationElementType::values()[array_rand(EducationElementType::values())],
+            'learning_objectives' => $learningObjectives,
         ];
 
         $response = $this->post(route('education-elements.store'), $attributes);
 
         $response->assertRedirect(route('education-elements.index'));
-        $this->assertDatabaseHas('education_elements', $attributes);
+        $this->assertDatabaseHas('education_elements', [
+            'name' => $attributes['name'],
+            'type_class' => $attributes['type_class'],
+        ]);
     }
 
     public function testEdit()
@@ -67,15 +73,20 @@ class EducationElementControllerTest extends TestCase
         $this->signIn();
 
         $educationElement = EducationElement::factory()->create();
+        $learningObjectives = LearningObjective::factory()->count(rand(1, 3))->create()->pluck('id')->toArray();
         $attributes = [
             'name' => $this->faker->word,
             'type_class' => EducationElementType::values()[array_rand(EducationElementType::values())],
+            'learning_objectives' => $learningObjectives,
         ];
 
         $response = $this->put(route('education-elements.update', $educationElement), $attributes);
 
         $response->assertRedirect(route('education-elements.index'));
-        $this->assertDatabaseHas('education_elements', $attributes);
+        $this->assertDatabaseHas('education_elements', [
+            'name' => $attributes['name'],
+            'type_class' => $attributes['type_class'],
+        ]);
     }
 
     public function testDestroy()

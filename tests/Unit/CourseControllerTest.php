@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Course;
+use App\Models\LearningObjective;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -37,13 +38,19 @@ class CourseControllerTest extends TestCase
     {
         $this->signIn();
         
-        $attributes = ['name' => $this->faker->unique()->word];
+        $learningObjectives = LearningObjective::factory()->count(rand(1, 3))->create()->pluck('id')->toArray();
+        $attributes = [
+            'name' => $this->faker->unique()->word,
+            'learning_objectives' => $learningObjectives,
+        ];
 
         $response = $this->post(route('courses.store'), $attributes);
 
         $response->assertRedirect(route('courses.index'));
         $response->assertSessionHas('success', 'Course created successfully.');
-        $this->assertDatabaseHas('courses', $attributes);
+        $this->assertDatabaseHas('courses', [
+            'name' => $attributes['name'],
+        ]);
     }
 
     public function testEdit()
@@ -64,13 +71,19 @@ class CourseControllerTest extends TestCase
         $this->signIn();
         
         $course = Course::factory()->create();
-        $attributes = ['name' => $this->faker->unique()->word];
+        $learningObjectives = LearningObjective::factory()->count(rand(1, 3))->create()->pluck('id')->toArray();
+        $attributes = [
+            'name' => $this->faker->unique()->word,
+            'learning_objectives' => $learningObjectives,
+        ];
 
         $response = $this->put(route('courses.update', $course), $attributes);
 
         $response->assertRedirect(route('courses.index'));
         $response->assertSessionHas('success', 'Course updated successfully.');
-        $this->assertDatabaseHas('courses', $attributes);
+        $this->assertDatabaseHas('courses', [
+            'name' => $attributes['name'],
+        ]);
     }
 
     public function testDestroy()
