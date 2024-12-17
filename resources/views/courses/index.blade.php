@@ -33,7 +33,7 @@
                     <th scope="row">{{ $course->name }}</th>
                     <th scope="row">{{ $course->status }}</th>
                     <td class="d-flex">
-                        @if($course->isDraft())
+                        @if($course->isDraft() && $course->canBeCompleted())
                             <div>
                                 <form action="{{ route('courses.complete', $course) }}" method="POST">
                                     @method('PATCH')
