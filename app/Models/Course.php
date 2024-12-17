@@ -130,4 +130,29 @@ class Course extends Model
 
         return true;
     }
+
+    public function canBeCompleted(): bool
+    {
+        $plannings = $this->getPlanningsInOrder();
+    
+        $hasLesson = false;
+        $hasTest = false;
+    
+        foreach ($plannings as $planning) {
+            $educationElement = $planning->educationElement;
+    
+            if ($educationElement->isTest()) {
+                $hasTest = true;
+            } elseif (!$hasLesson) {
+                $hasLesson = true;
+            }
+    
+            if ($hasLesson && $hasTest) {
+                return true;
+            }
+        }
+    
+        return false;
+    }
+    
 }
