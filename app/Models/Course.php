@@ -60,9 +60,9 @@ class Course extends Model
         return $this->status->is(Status::Draft);
     }
 
-    public function isPlanable(): bool
+    public function isPlannable(): bool
     {
-        return $this->status->is(Status::Planable);
+        return $this->status->is(Status::Plannable);
     }
 
     public function verifyCompletion(): bool
@@ -80,7 +80,7 @@ class Course extends Model
             return false;
         }
 
-        $this->update(['status' => Status::Planable]);
+        $this->update(['status' => Status::Plannable]);
         return true;
     }
 

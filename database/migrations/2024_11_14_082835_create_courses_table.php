@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('teacher_id')->constrained('users');
-            $table->enum('status', ['draft', 'planable'])->default('draft');
+            $table->enum('status', ['draft', 'plannable'])->default('draft');
             $table->string('name', 255);
             $table->timestamps();
         });
