@@ -45,6 +45,7 @@ class EvaluationControllerTest extends TestCase
             'test_id' => EducationElement::factory()->create()->id,
             'execution_id' => Execution::factory()->create()->id,
             'grade' => $this->faker->randomFloat(2, 0, 10),
+            'comment' => $this->faker->text,
         ];
 
         $response = $this->post(route('evaluations.store'), $attributes);
@@ -77,6 +78,7 @@ class EvaluationControllerTest extends TestCase
             'test_id' => EducationElement::factory()->create()->id,
             'execution_id' => Execution::factory()->create()->id,
             'grade' => $this->faker->randomFloat(2, 0, 10),
+            'comment' => $this->faker->text,
         ];
 
         $response = $this->put(route('evaluations.update', $evaluation), $attributes);

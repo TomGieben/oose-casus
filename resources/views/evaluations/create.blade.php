@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -38,6 +37,11 @@
         <div class="mb-3">
             <label for="grade" class="form-label">{{ __('Grade') }}</label>
             <input type="text" class="form-control" id="grade" name="grade" value="{{ old('grade') }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="comment" class="form-label">{{ __('Comment') }}</label>
+            <textarea class="form-control" id="comment" name="comment" rows="3">{{ old('comment') }}</textarea>
         </div>
 
         <div class="d-flex justify-content-between">
