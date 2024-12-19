@@ -24,6 +24,18 @@ class Pdf extends Exporter
 
     public function download(): HttpResponse
     {
+        $pdfContent = $this->getPdfContent();
+        $headers = $this->getPdfHeaders($this->resource->name);
+
+        return Response::make(
+            $pdfContent,
+            200,
+            $headers
+        );
+    }
+
+    private function getPdfContent(): string
+    {
         $config = new PdfDocumentConfig(
             linesPerPage: 28,
             lineWidth: 40,
@@ -36,16 +48,10 @@ class Pdf extends Exporter
             $config->lineWidth
         );
 
-        $pdfContent = $this->pdfBuilder
+        return $this->pdfBuilder
             ->setConfig($config)
             ->addPages($lines)
             ->build();
-
-        return Response::make(
-            $pdfContent,
-            200,
-            $this->getPdfHeaders($this->resource->name)
-        );
     }
 
     private function getPdfHeaders(string $filename): array

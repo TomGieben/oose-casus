@@ -11,7 +11,7 @@ class Test extends EducationElement
 {
     protected $table = 'education_elements';
 
-    public function evalluations(): HasMany
+    public function evaluations(): HasMany
     {
         return $this->hasMany(Evaluation::class);
     }
