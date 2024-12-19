@@ -37,6 +37,10 @@ class ExporterDropdown extends Component
                 continue;
             }
 
+            if (is_dir(app_path('Exporters/' . $file))) {
+                continue;
+            }
+
             $exportType = pathinfo($file, PATHINFO_FILENAME);
 
             $class = 'App\\Exporters\\' . $exportType;
