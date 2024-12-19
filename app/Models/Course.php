@@ -58,6 +58,11 @@ class Course extends Model
         );
     }
 
+    public function scopeWhereIsPlannable($query): void
+    {
+        $query->where('status', Status::Plannable);
+    }
+
     public function getPlanningsInOrder(): Collection
     {
         return $this->plannings()->orderBy('week')->orderBy('day')->orderBy('starts_at')->get();
