@@ -22,6 +22,7 @@
                 <th scope="col">{{ __('Test') }}</th>
                 <th scope="col">{{ __('Execution') }}</th>
                 <th scope="col">{{ __('Grade') }}</th>
+                <th scope="col">{{ __('Comment') }}</th>
                 @can('admin', 'teacher')
                     <th scope="col">{{ __('Actions') }}</th>
                 @endcan
@@ -41,6 +42,7 @@
                     <td>{{ $evaluation->test->name }}</td>
                     <td>{{ $evaluation->execution->name }}</td>
                     <td>{{ $evaluation->grade }}</td>
+                    <td>{{ $evaluation->comment }}</td>
                     @can('admin', 'teacher')
                         <td>
                             <a class="btn btn-sm btn-warning me-1" href="{{ route('evaluations.edit', $evaluation) }}">

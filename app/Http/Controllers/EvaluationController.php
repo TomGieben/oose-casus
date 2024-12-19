@@ -45,6 +45,7 @@ class EvaluationController extends Controller
             'test_id' => 'required|exists:education_elements,id',
             'execution_id' => 'required|exists:executions,id',
             'grade' => 'required|numeric',
+            'comment' => 'nullable|string',
         ]);
 
         Evaluation::create($attributes);
@@ -73,6 +74,7 @@ class EvaluationController extends Controller
             'test_id' => 'required|exists:education_elements,id',
             'execution_id' => 'required|exists:executions,id',
             'grade' => 'required|numeric',
+            'comment' => 'nullable|string',
         ]);
 
         $evaluation->update($attributes);
