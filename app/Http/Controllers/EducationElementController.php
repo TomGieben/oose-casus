@@ -41,7 +41,10 @@ class EducationElementController extends Controller
         
         $educationElement->learningObjectives()->sync($attributes['learning_objectives']);
 
-        return redirect()->route('education-elements.index');
+        return redirect()->route('education-elements.index')
+            ->with('success', __('Education element created successfully. Do you want to <a href=":route">add resources</a> to it?', [
+                'route' => route('resources.create') . '?education_element_id=' . $educationElement->id,
+            ]));
     }
 
 
@@ -69,7 +72,10 @@ class EducationElementController extends Controller
             'type_class' => $attributes['type_class'],
         ]);
 
-        return redirect()->route('education-elements.index');
+        return redirect()->route('education-elements.index')
+            ->with('success', __('Education element updated successfully. Do you want to <a href=":route">add resources</a> to it?', [
+                'route' => route('resources.create') . '?education_element_id=' . $educationElement->id,
+            ]));
     }
 
     public function destroy(EducationElement $educationElement)
