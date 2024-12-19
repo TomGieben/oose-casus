@@ -14,7 +14,11 @@ class EvaluationController extends Controller
 {
     public function index()
     {
-        $evaluations = Evaluation::all();
+        $evaluations = Evaluation::query()
+            ->when(auth()->user()->isStudent(), function ($query) {
+                return $query->where('student_id', auth()->id());
+            })
+            ->get();
 
         return view('evaluations.index', [
             'evaluations' => $evaluations,

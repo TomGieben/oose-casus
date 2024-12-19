@@ -6,13 +6,21 @@ use App\Exporters\Exporter;
 use App\Models\Resource;
 use App\Models\Course;
 use App\Models\EducationElement;
+use App\Users\Student;
 use Illuminate\Http\Request;
 
 class ResourceController extends Controller
 {
     public function index()
     {
-        $resources = Resource::with('course', 'educationElement')->get();
+        $resources = Resource::query()
+            ->when(auth()->user()->isStudent(), function ($query) {
+                return $query->whereHas('course.executions', function ($query) {
+                    $query->whereIn('group_id', Student::find(auth()->id())->groups->pluck('id'));
+                });
+            })
+            ->with('course', 'educationElement')
+            ->get();
         return view('resources.index', [
             'resources' => $resources
         ]);
