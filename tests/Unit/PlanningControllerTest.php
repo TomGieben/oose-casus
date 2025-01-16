@@ -30,7 +30,7 @@ class PlanningControllerTest extends TestCase
     public function testCreate()
     {
         $this->signIn();
-        
+
         $response = $this->get(route('plannings.create'));
 
         $response->assertStatus(200);
@@ -40,7 +40,7 @@ class PlanningControllerTest extends TestCase
     public function testStore()
     {
         $this->signIn();
-        
+
         $startsAt = $this->faker->time('H:i');
         $endsAt = date('H:i', strtotime($startsAt . ' +1 hour'));
 
@@ -62,7 +62,7 @@ class PlanningControllerTest extends TestCase
     public function testEdit()
     {
         $this->signIn();
-        
+
         $planning = Planning::factory()->create();
 
         $response = $this->get(route('plannings.edit', $planning));
@@ -75,10 +75,10 @@ class PlanningControllerTest extends TestCase
     public function testUpdate()
     {
         $this->signIn();
-        
+
         $planning = Planning::factory()->create();
         $startsAt = $this->faker->time('H:i');
-        $endsAt = date('H:i', strtotime($startsAt . ' +1 hour'));
+        $endsAt = date('H:i', strtotime($startsAt . ' +3 hour'));
 
         $attributes = [
             'course_id' => Course::factory()->create()->id,
@@ -98,7 +98,7 @@ class PlanningControllerTest extends TestCase
     public function testDestroy()
     {
         $this->signIn();
-        
+
         $planning = Planning::factory()->create();
 
         $response = $this->delete(route('plannings.destroy', $planning));
