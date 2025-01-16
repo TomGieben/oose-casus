@@ -24,7 +24,9 @@
             <select class="form-control" id="education_element_id" name="education_element_id" onchange="toggleSelection('education_element_id', 'course_id')">
                 <option value="">{{ __('No Education element selected') }}</option>
                 @foreach ($educationElements as $educationElement)
-                    <option value="{{ $educationElement->id }}">
+                    <option value="{{ $educationElement->id }}"
+                        @selected($educationElement->id == (old('education_element_id') ?? request('education_element_id')))
+                    >
                         {{ $educationElement->name }}
                     </option>
                 @endforeach

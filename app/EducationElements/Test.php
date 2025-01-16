@@ -9,14 +9,17 @@ use Illuminate\Support\Collection;
 
 class Test extends EducationElement
 {
-    public function evalluations(): HasMany
+    protected $table = 'education_elements';
+
+    public function evaluations(): HasMany
     {
         return $this->hasMany(Evaluation::class);
     }
 
     public function areLearningObjectivesCovered(Collection $objectives): bool
     {
-        $testObjectives = $this->learningObjectives;
+        $testObjectives = $this->learningObjectives->pluck('id');
+        $objectives = $objectives->pluck('id');
 
         foreach ($testObjectives as $testObjective) {
             if (!$objectives->contains($testObjective)) {

@@ -6,12 +6,14 @@
 <div class="container my-5">
     <h2 class="mb-4">{{ __('Plannings') }}</h2>
 
-    <div class="d-flex justify-content-end mb-3">
-        <a class="btn btn-secondary" href="{{ route('plannings.create') }}">
-            <i class="fas fa-plus"></i> 
-            {{ __('Add Planning') }}
-        </a>
-    </div>
+    @can('admin', 'teacher')
+        <div class="d-flex justify-content-end mb-3">
+            <a class="btn btn-secondary" href="{{ route('plannings.create') }}">
+                <i class="fas fa-plus"></i> 
+                {{ __('Add Planning') }}
+            </a>
+        </div>
+    @endcan
 
     <table class="table table-striped">
         <thead class="table-light">
@@ -22,7 +24,9 @@
                 <th scope="col">{{ __('Day') }}</th>
                 <th scope="col">{{ __('Starts At') }}</th>
                 <th scope="col">{{ __('Ends At') }}</th>
-                <th scope="col">{{ __('Actions') }}</th>
+                @can('admin', 'teacher')
+                    <th scope="col">{{ __('Actions') }}</th>
+                @endcan
             </tr>
         </thead>
         <tbody>
@@ -41,12 +45,14 @@
                     <td>{{ $planning->day->label() }}</td>
                     <td>{{ $planning->starts_at->format('H:i') }}</td>
                     <td>{{ $planning->ends_at->format('H:i') }}</td>
-                    <td>
-                        <a class="btn btn-sm btn-warning me-1" href="{{ route('plannings.edit', $planning) }}">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <x-delete-button :route="route('plannings.destroy', $planning)" small/>
-                    </td>
+                    @can('admin', 'teacher')
+                        <td>
+                            <a class="btn btn-sm btn-warning me-1" href="{{ route('plannings.edit', $planning) }}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <x-delete-button :route="route('plannings.destroy', $planning)" small/>
+                        </td>
+                    @endcan
                 </tr>
             @endforeach
         </tbody>

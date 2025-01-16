@@ -15,6 +15,7 @@ class Evaluation extends Model
         'test_id',
         'execution_id',
         'grade',
+        'comment',
     ];
 
     protected $casts = [

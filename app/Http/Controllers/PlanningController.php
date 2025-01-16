@@ -7,13 +7,25 @@ use App\Enums\Week;
 use App\Models\Planning;
 use App\Models\Course;
 use App\Models\EducationElement;
+use App\Users\Student;
 use Illuminate\Http\Request;
 
 class PlanningController extends Controller
 {
     public function index()
     {
-        $plannings = Planning::with('course')->get();
+        $plannings = Planning::query()
+            ->when(auth()->user()->isStudent(), function ($query) {
+                return $query->whereHas('course.executions', function ($query) {
+                    $query->whereIn('group_id', Student::find(auth()->id())->groups->pluck('id'));
+                });
+            })
+            ->with('course')
+            ->orderBy('week', 'asc')
+            ->orderBy('day', 'asc')
+            ->orderBy('starts_at', 'asc')
+            ->get();
+
         return view('plannings.index', [
             'plannings' => $plannings
         ]);
@@ -70,8 +82,8 @@ class PlanningController extends Controller
         $validated = $request->validate([
             'course_id' => 'required|exists:courses,id',
             'education_element_id' => 'required|exists:education_elements,id',
-            'week' => 'required|in,' . implode(',', Week::values()),
-            'day' => 'required|in,' . implode(',', Day::values()),
+            'week' => 'required|in:' . implode(',', Week::values()),
+            'day' => 'required|in:' . implode(',', Day::values()),
             'starts_at' => 'required|date_format:H:i|before:ends_at',
             'ends_at' => 'required|date_format:H:i|after:starts_at',
         ]);

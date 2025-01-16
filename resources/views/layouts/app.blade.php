@@ -64,7 +64,7 @@
                 <div class="container">
                     <div class="alert alert-success">
                         <i class="fas fa-check me-1"></i>
-                        {{ session('success') }}
+                        {!! session('success') !!}
                     </div>
                 </div>
             @endif
@@ -74,9 +74,18 @@
                     <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                                <li>{!! $error !!}</li>
                             @endforeach
                         </ul>
+                    </div>
+                </div>
+            @endif
+
+            @if(session()->has('error'))
+                <div class="container">
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-1"></i>
+                        {!! session('error') !!}
                     </div>
                 </div>
             @endif

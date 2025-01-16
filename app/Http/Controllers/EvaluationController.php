@@ -14,7 +14,11 @@ class EvaluationController extends Controller
 {
     public function index()
     {
-        $evaluations = Evaluation::all();
+        $evaluations = Evaluation::query()
+            ->when(auth()->user()->isStudent(), function ($query) {
+                return $query->where('student_id', auth()->id());
+            })
+            ->get();
 
         return view('evaluations.index', [
             'evaluations' => $evaluations,
@@ -41,6 +45,7 @@ class EvaluationController extends Controller
             'test_id' => 'required|exists:education_elements,id',
             'execution_id' => 'required|exists:executions,id',
             'grade' => 'required|numeric',
+            'comment' => 'nullable|string',
         ]);
 
         Evaluation::create($attributes);
@@ -69,6 +74,7 @@ class EvaluationController extends Controller
             'test_id' => 'required|exists:education_elements,id',
             'execution_id' => 'required|exists:executions,id',
             'grade' => 'required|numeric',
+            'comment' => 'nullable|string',
         ]);
 
         $evaluation->update($attributes);

@@ -5,12 +5,14 @@
 <div class="container my-5">
     <h2 class="mb-4">{{ __('Resources') }}</h2>
 
-    <div class="d-flex justify-content-end mb-3">
-        <a class="btn btn-secondary me-2" href="{{ route('resources.create') }}">
-            <i class="fas fa-plus"></i> 
-            {{ __('Add Resource') }}
-        </a>
-    </div>
+    @can('admin', 'teacher')
+        <div class="d-flex justify-content-end mb-3">
+            <a class="btn btn-secondary me-2" href="{{ route('resources.create') }}">
+                <i class="fas fa-plus"></i> 
+                {{ __('Add Resource') }}
+            </a>
+        </div>
+    @endcan
 
     <table class="table table-striped table-responsive">
         <thead class="table-light">
@@ -37,10 +39,12 @@
                     <td scope="row">{{ $resource->name }}</td>
                     <td scope="row" class="limited-width">{{ $resource->content }}</td>
                     <td scope="row">
-                        <a class="btn btn-sm btn-warning me-1" href="{{ route('resources.edit', $resource) }}">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <x-delete-button :route="route('resources.destroy', $resource)" small/>
+                        @can('admin', 'teacher')
+                            <a class="btn btn-sm btn-warning me-1" href="{{ route('resources.edit', $resource) }}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <x-delete-button :route="route('resources.destroy', $resource)" small/>
+                        @endcan
                         <x-exporter-dropdown :resource="$resource"/>
                     </td>
                 </tr>

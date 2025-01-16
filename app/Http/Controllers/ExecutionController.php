@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Role;
+use App\Enums\Status;
 use App\Models\Execution;
 use App\Models\Course;
 use App\Models\Classroom;
@@ -23,7 +24,7 @@ class ExecutionController extends Controller
 
     public function create()
     {
-        $courses = Course::all();
+        $courses = Course::where('status', Status::Plannable->value)->get();
         $classrooms = Classroom::all();
         $groups = Group::all();
         $teachers = User::where('role', Role::Teacher)->get();
@@ -53,7 +54,7 @@ class ExecutionController extends Controller
 
     public function edit(Execution $execution)
     {
-        $courses = Course::all();
+        $courses = Course::where('status', Status::Plannable->value)->get();
         $classrooms = Classroom::all();
         $groups = Group::all();
         $teachers = User::where('role', Role::Teacher)->get();
