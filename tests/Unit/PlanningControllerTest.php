@@ -42,6 +42,10 @@ class PlanningControllerTest extends TestCase
         $this->signIn();
 
         $startsAt = $this->faker->time('H:i');
+        if (strtotime($startsAt) + 60 * 60 > strtotime('23:59')) {
+            $startsAt = date('H:i', strtotime($startsAt . ' -1 hour'));
+        }
+
         $endsAt = date('H:i', strtotime($startsAt . ' +1 hour'));
 
         $attributes = [
@@ -78,7 +82,12 @@ class PlanningControllerTest extends TestCase
 
         $planning = Planning::factory()->create();
         $startsAt = $this->faker->time('H:i');
-        $endsAt = date('H:i', strtotime($startsAt . ' +3 hour'));
+
+        if (strtotime($startsAt) + 60 * 60 > strtotime('23:59')) {
+            $startsAt = date('H:i', strtotime($startsAt . ' -1 hour'));
+        }
+
+        $endsAt = date('H:i', strtotime($startsAt . ' +1 hour'));
 
         $attributes = [
             'course_id' => Course::factory()->create()->id,
