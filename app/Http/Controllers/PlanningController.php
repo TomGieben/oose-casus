@@ -20,11 +20,15 @@ class PlanningController extends Controller
                     $query->whereIn('group_id', Student::find(auth()->id())->groups->pluck('id'));
                 });
             })
-            ->with('course')
+            ->with(['course.executions'])
             ->orderBy('week', 'asc')
             ->orderBy('day', 'asc')
             ->orderBy('starts_at', 'asc')
-            ->get();
+            ->get()
+            ->map(function ($planning) {
+                $planning->execution_date = $planning?->course?->executions?->first()?->date ?? date('Y-m-d');
+                return $planning;
+            });
 
         return view('plannings.index', [
             'plannings' => $plannings

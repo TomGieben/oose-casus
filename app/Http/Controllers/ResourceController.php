@@ -21,6 +21,7 @@ class ResourceController extends Controller
             })
             ->with('course', 'educationElement')
             ->get();
+            
         return view('resources.index', [
             'resources' => $resources
         ]);

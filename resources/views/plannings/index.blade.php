@@ -20,6 +20,9 @@
             <tr>
                 <th scope="col">{{ __('Course') }}</th>
                 <th scope="col">{{ __('Education element') }}</th>
+                @can('student')
+                    <th scope="col">{{ __('Date') }}</th>
+                @endcan
                 <th scope="col">{{ __('Week') }}</th>
                 <th scope="col">{{ __('Day') }}</th>
                 <th scope="col">{{ __('Starts At') }}</th>
@@ -41,6 +44,7 @@
                 <tr>
                     <th scope="row">{{ $planning->course->name }}</th>
                     <th scope="row">{{ $planning->educationElement->name }}</th>
+                    <td>{{ $planning->execution_date }}</td>
                     <td>{{ $planning->week->label() }}</td>
                     <td>{{ $planning->day->label() }}</td>
                     <td>{{ $planning->starts_at->format('H:i') }}</td>
