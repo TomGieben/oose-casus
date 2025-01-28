@@ -51,10 +51,10 @@
         @endcan
         @can('admin', 'teacher')
             <div class="col-md-4 col-12">
-                <a href="{{ route('criteria.index') }}" class="card mb-3 shadow-sm text-decoration-none">
+                <a href="{{ route('classrooms.index') }}" class="card mb-3 shadow-sm text-decoration-none">
                     <div class="card-body bg-danger text-white rounded">
-                        <i class="fal fa-list"></i>
-                        {{ __('Criteria') }}
+                        <i class="fal fa-chalkboard"></i>
+                        {{ __('Classrooms') }}
                     </div>
                 </a>
             </div>
